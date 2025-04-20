@@ -26,6 +26,7 @@ def watch_video():
             <source src="https://inv-eu3-c.nadeko.net/latest_version?id={videoid}&itag=18&check=" type="video/mp4">
             お使いのブラウザは動画タグをサポートしていません。
         </video>
+        https://www.youtubeeducation.com/embed/{videoid}?embed_config=%7B%22enc%22%3A%22AXH1ezkRiBJkmX6qs8WHisUf72KwPPjLRshwQcdT1lv-pDgxChnF5o4Oi692Y-DeUTO4Y5atxHwwp_P1H7usZTpc7tVgZ_wg0XJ5l8H5YBY1GFcI0kcGVoFoj64vhmZS-dzfjOw7u_9J9LFZejoQ_Ow_R-MuqRkfJQ%3D%3D%22%2C%22hideTitle%22%3Atrue%7D
         '''
         
         # 受け取ったHTMLを変更してレスポンスを返す
