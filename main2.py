@@ -4,6 +4,21 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
+INVIDIOUS_INSTANCES = [
+    "https://cal1.iv.ggtyler.dev", "https://lekker.gay", "https://pol1.iv.ggtyler.dev",
+    "https://iv.melmac.space", "https://nyc1.iv.ggtyler.dev", "https://invidious.lunivers.trade",
+    "https://iv.ggtyler.dev", "https://eu-proxy.poketube.fun", "https://invidious.f5.si",
+    "https://invidious.reallyaweso.me", "https://invidious.dhusch.de", "https://yewtu.be",
+    "https://usa-proxy2.poketube.fun", "https://id.420129.xyz", "https://invidious.materialio.us",
+    "https://invidious.darkness.service", "https://iv.datura.network", "https://invidious.jing.rocks",
+    "https://invidious.private.coffee", "https://youtube.mosesmang.com", "https://invidious.projectsegfau.lt",
+    "https://invidious.perennialte.ch", "https://invidious.einfachzocken.eu", "https://invidious.adminforge.de",
+    "https://iv.duti.dev", "https://invid-api.poketube.fun", "https://inv.nadeko.net",
+    "https://invidious.esmailelbob.xyz", "https://invidious.0011.lt", "https://invidious.ducks.party",
+    "https://invidious.privacyredirect.com", "https://youtube.privacyplz.org", "https://yt.artemislena.eu",
+    "https://invidious.schenkel.eti.br"
+]
+
 @app.route('/watch')
 def watch_video():
     videoid = request.args.get('v')
@@ -38,6 +53,24 @@ def watch_video():
 
     except subprocess.CalledProcessError as e:
         return f"Error fetching YouTube page: {e}"
+
+@app.route('/comments')
+def get_comments():
+    videoid = request.args.get('v')
+    if not videoid:
+        return jsonify({'error': '動画ID (v) が必要です'}), 400
+
+    instance = random.choice(INVIDIOUS_INSTANCES)
+    url = f"{instance}/api/v1/comments/{videoid}"
+
+    try:
+        res = requests.get(url, timeout=5)
+        res.raise_for_status()
+        comments = res.json()
+        return jsonify(comments)
+    except Exception as e:
+        return jsonify({'error': 'Invidiousからコメント取得に失敗しました', 'details': str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
