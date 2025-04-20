@@ -6,3 +6,4 @@ Flask
 requests[socks]
 stem
 flask-cors
+beautifulsoup4
